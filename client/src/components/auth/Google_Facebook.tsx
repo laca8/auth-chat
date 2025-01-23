@@ -29,9 +29,10 @@ export default function Auth() {
     const [loading, setLoading] = useState(false);
 
     const login = useGoogleLogin({
-
-        onSuccess: (codeResponse) => setUser(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
+        onSuccess: (codeResponse) => setUser({ access_token: codeResponse.code }),
+        onError: (error) => console.log('Login Failed:', error),
+        flow: 'auth-code',
+        redirect_uri: 'http://localhost:5173/'
     });
 
     useEffect(() => {
